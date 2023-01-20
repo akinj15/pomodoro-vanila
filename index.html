@@ -1,0 +1,44 @@
+<!DOCTYPE html> 
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pomodoro app</title>
+    <link rel="stylesheet" type="" href="./style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="header-container">
+        <div class="header-input">
+          <p>working</p>
+          <input class="input-entry" id="working" type="number">
+        </div>
+        <div class="header-input">
+          <p>break</p>
+          <input class="input-entry" id="break" type="number">
+        </div>
+        <div class="header-input">
+          <p>long break</p>
+          <input class="input-checkbox" id="long-break" type="checkbox">
+        </div>
+      </div>
+      <div class="body-container">
+        <div class="pomodoro-circle">
+          <div>
+            <h1 id="pomodoro-timer-working">25:00</h1>
+            <h4 id="pomodoro-timer-break">05:00</h4>
+            <div class="player" id="player-button">
+              player
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </body>
+</html>
+

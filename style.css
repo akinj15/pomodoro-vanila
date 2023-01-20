@@ -1,0 +1,49 @@
+*{
+  padding:0;
+  margin:0;
+  font-family: 'Montserrat', sans-serif;
+}
+
+body {
+  background-color: #F94144;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 3em;
+  justify-content: center;
+  width: 30%;
+}
+
+.header-container, .body-container {
+  width: 100vw;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+.header-input {
+  justify-content: center;
+  text-align: center;
+  margin: 10px;
+}
+
+.pomodoro-circle {
+  justify-content: center;
+  text-align: center;
+  padding: 15px;
+  border-radius: 100%;
+  border: 15px solid #fff;
+  width: 150px;
+  height: 150px;
+  margin: auto;
+}
+
+.pomodoro-circle div {
+  padding-top: 20px;
+}
+
+
