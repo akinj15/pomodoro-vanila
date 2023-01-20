@@ -1,18 +1,34 @@
-let workingTimer = querySelector(".pomodoro-timer-working");
-let breakTimer = querySelector(".pomodoro-timer-working");
-let workingInput = querySelector("#working");
-let breakInput = querySelector("#break");
-let longBreak = querySelector("#long-break");
+let workingTimer = {
+  minuted: document.querySelector("#minuted-working"),
+  minuteu: document.querySelector("#minuteu-working"),
+  secondd: document.querySelector("#secondd-working"),
+  secondu: document.querySelector("#secondu-working")
+}
+let breakTimer = {
+  minuted: document.querySelector("#minuted-break"),
+  minuteu: document.querySelector("#minuteu-break"),
+  secondd: document.querySelector("#secondd-break"),
+  secondu: document.querySelector("#secondu-break")
+}
+let workingInput = document.querySelector("#working");
+let breakInput = document.querySelector("#break");
+let longBreak = document.querySelector("#long-break");
 
-let startPause = querySelector("#start-pause");
-let reset = querySelector("#reset");
-let zerar = querySelector("#zerar");
+let startPause = document.getElementById("player-button");
+let reset = document.querySelector("#reset");
+let zerar = document.querySelector("#zerar");
 
 let pomodoroTimer = null;
 
 startPause.addEventListener('click', () => {
-  if (pomodoroTimer === null) {
-    pomodoroTimer = new PomodoroTimer(workingInput.value, breakInput.value, longBreak.value);
+  if ( !pomodoroTimer??getStatusTimer() === false ) {
+    pomodoroTimer = new PomodoroTimer(
+      workingInput.value,
+      breakInput.value,
+      longBreak.value,
+      workingTimer,
+      breakTimer
+    );
   }
   if (pomodoroTimer.getStatusTimer()) {
     pomodoroTimer.pause()
@@ -22,34 +38,60 @@ startPause.addEventListener('click', () => {
   }
 });
 
-reset.addEventListener('click', () => pomodoroTimer.reset());
+reset.addEventListener('click', () => {
+  if ( !pomodoroTimer??getStatusTimer() === false ) {
+    pomodoroTimer = new PomodoroTimer(
+      workingInput.value,
+      breakInput.value,
+      longBreak.value,
+      workingTimer,
+      breakTimer
+    );
+  }
+  pomodoroTimer.reset()
+
+});
 
 class PomodoroTimer {
   _timeBreak = 0;
   _timeWorking = 0;
   _breaks = 0;
-  constructor (timeWorking, timeBreak, longBreak) {
+  statusTimer = false;
+  _timerWorking = null;
+  _timerBreak = null;
+  
+  constructor (timeWorking, timeBreak, longBreak, timerWorking, timerBreak) {
     this.timeWorking = timeWorking * 60;
     this.timeBreak = longBreak ? timeBreak * 120 : timeBreak * 60;
-    this.start()
+    this._timeWorking = this.timeWorking;
+    this._timeBreak = this.timeBreak;
+    this._timerWorking = timerWorking;
+    this._timerBreak = timerBreak;
+    this.reset()
   }
+
   start () {
-    setinterval(() => {
+    setInterval(() => {
       this._count();
+      console.log('ata');
     }, 1000);
     this.statusTimer = true;
   }
+
   reset () {
     this.breaks = 0;
     this._timeWorking = this.timeWorking;
     this._timeBreak = this.timeBreak;
   }
+
   pause () {
     this.statusTimer = false;
     return;  
   }
+
   _count () {
-    if (breaks < 4) {
+    if (this._breaks < 4) {
+      this.statusTimer = false;
       if (this._timeWorking > 0){
         this._timeWorking = this._timeWorking --;
       }
@@ -59,14 +101,28 @@ class PomodoroTimer {
       if (this._timeBreak == 0 && this._timeWorking == 0) {
         this._tocaSino();
       }
+      this._atribueValore();
     }else {
       this.pause();
     }
   }
+
   getStatusTimer () {
     return this.statusTimer;
   }
+
+  _tocaSino () { }
+
+  _atribueValore () {
+    this._timerWorking.minuted.innerHTML = Math.floor(Math.floor(this._timeWorking / 60) / 10);
+    this._timerWorking.minuteu.innerHTML = Math.floor(Math.floor(this._timeWorking / 60) % 10); 
+    this._timerWorking.secondd.innerHTML = Math.floor(this._timeWorking % 60 ) / 10;
+    this._timerWorking.secondu.innerHTML = Math.floor(this._timeWorking % 60 ) % 10;
+
+    this._timerBreak.minuted.innerHTML = Math.floor(Math.floor(this._timeBreak / 60) / 10);
+    this._timerBreak.minuteu.innerHTML = Math.floor(Math.floor(this._timeBreak / 60) % 10);
+    this._timerBreak.secondd.innerHTML = Math.floor(this._timeBreak % 60) / 10;
+    this._timerBreak.secondu.innerHTML = Math.floor(this._timeBreak % 60) % 60;
+  }
 }
-
-
 
